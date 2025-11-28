@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ately.io - L'écosystème suisse pour l'immobilier</title>
+    <meta name="description"
+        content="Ately.io connecte propriétaires, promoteurs et architectes autour d’études de faisabilité intelligentes.">
+    <style>
+        /* 
+         * DESIGN SYSTEM & RESET 
+         * Swiss Style: Clean, Minimal, Grid-based, Sans-serif
+         */
+        :root {
+            --bg-color: #F9F9F9;
+            /* Off-white */
+            --text-color: #222222;
+            /* Dark Charcoal */
+            --accent-color: #C87A56;
+            /* Copper/Orange - Ately inspired */
+            --accent-hover: #A65E3D;
+            --white: #FFFFFF;
+            --light-gray: #E5E5E5;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+            --header-height: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            display: block;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 122, 86, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--text-color);
+            color: var(--text-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* 
+         * INTRO SECTION (#intro) 
+         */
+        #intro {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
+            overflow: hidden;
+            /* Ensure shapes don't overflow */
+        }
+
+        .intro-animated-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            /* Behind content but above background */
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .shape1 {
+            width: 50vw;
+            height: 50vw;
+            background: rgba(200, 122, 86, 0.15);
+            /* Accent color low opacity */
+            top: -10%;
+            left: -10%;
+            animation-duration: 25s;
+        }
+
+        .shape2 {
+            width: 40vw;
+            height: 40vw;
+            background: rgba(200, 122, 86, 0.1);
+            bottom: -10%;
+            right: -5%;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        .shape3 {
+            width: 30vw;
+            height: 30vw;
+            background: rgba(200, 122, 86, 0.08);
+            top: 40%;
+            left: 40%;
+            animation-duration: 35s;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(30px, 50px) scale(1.1);
+            }
+        }
+
+        /* Ensure content is above background */
+        .intro-logo,
+        .intro-tagline,
+        .intro-buttons {
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-logo {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeScaleIn 1.2s ease-out forwards;
+        }
+
+        .intro-tagline {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: #444;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .intro-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            /* Ensure centering */
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes fadeScaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+                letter-spacing: -5px;
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                letter-spacing: -2px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 
+         * NAVBAR 
+         */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: rgba(249, 249, 249, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        #navbar.visible {
+            transform: translateY(0);
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+        }
+
+        /* 
+         * DECOUVRIR SECTION 
+         */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        .video-block {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .video-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            background: #000;
+        }
+
+        .video-caption {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .video-disclaimer {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .cta-container {
+            text-align: center;
+        }
+
+        /* 
+         * A PROPOS SECTION (UPDATED)
+         */
+        #apropos {
+            background-color: var(--white);
+        }
+
+        .about-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-image-large {
+            width: 100%;
+            max-width: 1100px;
+            /* Very large */
+            margin-bottom: 50px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .about-image-large img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .linkedin-overlay {
+            position: absolute;
+            bottom: 20px;
+            /* Position at bottom */
+            width: 50px;
+            /* Square size */
+            height: 50px;
+            /* Square size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+            background: white;
+            border-radius: 8px;
+            /* Slightly rounded square */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .linkedin-overlay:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .linkedin-icon {
+            /* Icon is now directly inside overlay, no extra wrapper needed but keeping for SVG structure */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Positioning for each person based on image composition */
+        .linkedin-pos-1 {
+            left: 16.66%;
+            transform: translateX(-50%);
+        }
+
+        .linkedin-pos-2 {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .linkedin-pos-3 {
+            left: 83.33%;
+            transform: translateX(-50%);
+        }
+
+        .linkedin-overlay:hover .linkedin-icon {
+            /* No extra scale needed here, scaling parent */
+        }
+
+        .about-content-centered {
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .about-wrapper.visible .about-image-large,
+        .about-wrapper.visible .about-content-centered {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .founders-list-grid {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .founder-item {
+            text-align: left;
+            padding-left: 15px;
+            border-left: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            /* Align name and role */
+            gap: 10px;
+        }
+
+        .founder-name {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .founder-role {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .founder-separator {
+            color: #ccc;
+        }
+
+        /* 
+         * SONDAGE SECTION 
+         */
+        .survey-embed {
+            width: 100%;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .survey-embed iframe {
+            width: 100%;
+            min-height: 800px;
+            /* Increased for better visibility */
+            border: 0;
+        }
+
+        /* 
+         * CONTACT SECTION 
+         */
+        #contact {
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+
+        /* 
+         * RESPONSIVE 
+         */
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+                /* Simple hide for mobile MVP, could be improved with JS toggle */
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            #navbar {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="nav-logo">Ately.io</div>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#decouvrir">Découvrir</a>
+            <a href="#apropos">À propos</a>
+            <a href="#sondage">Sondage</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- INTRO -->
+    <section id="intro">
+        <div class="intro-animated-bg">
+            <div class="bg-shape shape1"></div>
+            <div class="bg-shape shape2"></div>
+            <div class="bg-shape shape3"></div>
+        </div>
+        <div class="intro-logo">Ately.io</div>
+        <p class="intro-tagline">
+            L’écosystème suisse qui connecte propriétaires, promoteurs et architectes autour d’études de faisabilité
+            intelligentes.
+        </p>
+        <div class="intro-buttons">
+            <a href="#decouvrir" class="btn btn-primary">Découvrir notre startup</a>
+            <a href="#sondage" class="btn btn-outline">Répondre à notre sondage</a>
+        </div>
+    </section>
+
+    <!-- DECOUVRIR -->
+    <section id="decouvrir">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Pour qui s'adresse Ately</h2>
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card fade-in">
+                    <h3>Pour les architectes</h3>
+                    <ul>
+                        <li>Plugin CAD Ately : import auto terrain & surfaces SIA.</li>
+                        <li>Gestion d’appels d’offres BTP & coordination.</li>
+                        <li>Mise en avant du bureau & gestion RDV.</li>
+                        <li>Portail 3D synchronisé & To-Do partagés.</li>
+                        <li>Vue rapide financement (grands comptes).</li>
+                    </ul>
+                </div>
+                <!-- Card 2 -->
+                <div class="card fade-in">
+                    <h3>Pour les promoteurs</h3>
+                    <ul>
+                        <li>Rapports d’étude complets (SPD, COS, CUS).</li>
+                        <li>Calcul automatique de rentabilité.</li>
+                        <li>Envoi dossier à architecte partenaire.</li>
+                        <li>Gestion de projet & collaboration.</li>
+                        <li>Plugin de suivi projet en temps réel.</li>
+                    </ul>
+                </div>
+                <!-- Card 3 -->
+                <div class="card fade-in">
+                    <h3>Pour les particuliers</h3>
+                    <ul>
+                        <li>Étude de faisabilité "light" toute Suisse.</li>
+                        <li>Visualisation terrain & volumétrie base.</li>
+                        <li>Estimation prix standards SIA.</li>
+                        <li>Mise en relation architectes régionaux.</li>
+                        <li>Espace notes & préparation dossier banque.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="video-block fade-in">
+                <h3 style="margin-bottom: 20px;">Vidéo concept</h3>
+                <div class="video-container">
+                    <video src="ately-video.mp4" autoplay muted playsinline controls poster="assets/thumbnail.jpg"
+                        width="100%">
+                        Votre navigateur ne supporte pas la vidéo.
+                    </video>
+                </div>
+                <p class="video-caption">Découvrez en 2 minutes comment Ately automatise vos études de faisabilité.</p>
+                <p class="video-disclaimer">Cette vidéo présente notre vision d’usage de certaine fonctionnalité de
+                    notre futur produit. Les visuels sont illustratifs, la version finale sera nettement plus aboutie.
+                </p>
+
+                <div class="cta-container">
+                    <a href="#sondage" class="btn btn-primary">Répondre au sondage (2 minutes)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A PROPOS -->
+    <section id="apropos">
+        <div class="container">
+            <div class="about-wrapper fade-in-group">
+                <h2 style="text-align: center; margin-bottom: 30px; font-size: 3rem;">Équipe fondatrice</h2>
+
+                <div class="about-image-large" style="position: relative;">
+                    <img src="assets/team_linked.png" alt="Les co-fondateurs d'Ately">
+
+                    <!-- LinkedIn Overlays -->
+                    <!-- Ben Saïd (Left) -->
+                    <a href="https://www.linkedin.com/in/saidbenjamin/" target="_blank"
+                        class="linkedin-overlay linkedin-pos-1">
+                        <span class="linkedin-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="#0077b5">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </span>
+                    </a>
+
+                    <!-- Alessandro Döbeli (Center) -->
+                    <a href="https://www.linkedin.com/in/alessandro-d%C3%B6beli-35a7a1248/" target="_blank"
+                        class="linkedin-overlay linkedin-pos-2">
+                        <span class="linkedin-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="#0077b5">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </span>
+                    </a>
+
+                    <!-- Alexis Senaud (Right) -->
+                    <a href="https://www.linkedin.com/in/asenaud/" target="_blank"
+                        class="linkedin-overlay linkedin-pos-3">
+                        <span class="linkedin-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="#0077b5">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="about-content-centered">
+                    <h3>À propos d’Ately.io</h3>
+                    <p>
+                        Ately.io connecte données réglementaires, outils de dessin et acteurs de l’immobilier pour
+                        transformer l’étude de faisabilité en processus rapide, fiable et collaboratif. Notre mission
+                        est de simplifier et d'accélérer les premières étapes cruciales de tout projet de construction
+                        en Suisse.
+                    </p>
+
+                    <div class="founders-list-grid">
+                        <div class="founder-item">
+                            <span class="founder-name">Alessandro Döbeli</span>
+                            <span class="founder-separator">–</span>
+                            <span class="founder-role">CEO, Vision produit & Architecture</span>
+                        </div>
+                        <div class="founder-item">
+                            <span class="founder-name">Ben Saïd</span>
+                            <span class="founder-separator">–</span>
+                            <span class="founder-role">CIO, Architecture technique & Data</span>
+                        </div>
+                        <div class="founder-item">
+                            <span class="founder-name">Alexis</span>
+                            <span class="founder-separator">–</span>
+                            <span class="founder-role">Co-fondateur, Développement produit & API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SONDAGE -->
+    <section id="sondage">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2>Nous avons besoin de votre avis</h2>
+                <p>Ce sondage dure 2 minutes et nous aide à construire l'outil dont vous avez vraiment besoin.</p>
+            </div>
+
+            <div class="survey-embed fade-in">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfY7P_yqthDeyT0Ei4seOgfGQyfr7jqFpu2h3as0mJYgM1qWQ/viewform?embedded=true"
+                    frameborder="0" marginheight="0" marginwidth="0" loading="lazy">
+                    Chargement…
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Architectes, promoteurs, particuliers : une question ? Un projet ? Écrivez-nous.</p>
+
+            <div class="contact-box fade-in">
+                <a href="mailto:hello@ately.io" class="contact-email">hello@ately.io</a>
+
+                <form class="contact-form"
+                    onsubmit="event.preventDefault(); alert('Merci pour votre message ! (Simulation)');">
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Ately.io – Proptech suisse pour les études de faisabilité et la collaboration entre acteurs de la
+            construction.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const introSection = document.getElementById('intro');
+
+        window.addEventListener('scroll', () => {
+            const introBottom = introSection.getBoundingClientRect().bottom;
+
+            if (introBottom <= 0) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .about-wrapper').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
